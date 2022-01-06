@@ -1,3 +1,4 @@
+using CarRental.App.Repositories;
 using CarRental.Database;
 using CarRental.Database.Seeders;
 using Microsoft.AspNetCore.Builder;
@@ -10,21 +11,19 @@ namespace CarRental.App
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IConfiguration _config;
+        public Startup(IConfiguration config)
         {
-            Configuration = configuration;
+            _config = config;
         }
-
-        public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
+        
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCarRentalDbContext(_config);
+            services.AddTransient<IUserRepository, UserRepository>();
             services.AddControllersWithViews();
-            services.AddCarRentalDbContext(Configuration);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -34,7 +33,6 @@ namespace CarRental.App
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
