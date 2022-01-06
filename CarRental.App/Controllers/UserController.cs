@@ -2,6 +2,7 @@
 using CarRental.App.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace CarRental.App.Controllers
 {
@@ -28,20 +29,27 @@ namespace CarRental.App.Controllers
             return View();
         }
 
+        // GET: UserController/Login
+        public ActionResult Login()
+        {
+            return View();
+        }
+
         // POST: UserController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(UserRegistrationViewModel model)
+        public async Task<ActionResult> Create(UserRegistrationViewModel model)
         {
-            try
+            if(ModelState.IsValid)
             {
-                _repo.Register(model);
-                return RedirectToAction(nameof(Index));
+                int id = await _repo.Register(model);
+                if(id > 0)
+                {
+                    return RedirectToAction();
+                }
             }
-            catch
-            {
-                return View();
-            }
+               
+            return View();
         }
 
         // GET: UserController/Edit/5

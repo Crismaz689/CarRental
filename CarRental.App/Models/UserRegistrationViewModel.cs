@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using CarRental.App.Helpers.Validators;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace CarRental.App.Models
@@ -7,6 +8,7 @@ namespace CarRental.App.Models
     {
         [Required(ErrorMessage = "You have to enter username!")]
         [MaxLength(24, ErrorMessage = "Username max length is 24!")]
+        [UserUnique]
         public string Username { get; set; }
 
         [Required(ErrorMessage = "You have to enter password!")]

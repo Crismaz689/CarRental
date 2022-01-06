@@ -1,7 +1,10 @@
 ﻿using CarRental.App.Models;
 using CarRental.Database;
 using CarRental.Database.Entities;
+using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using System.Security.Cryptography;
+using System.Threading.Tasks;
 
 namespace CarRental.App.Repositories
 {
@@ -10,8 +13,10 @@ namespace CarRental.App.Repositories
         private readonly CarRentalDbContext _context;
 
         public UserRepository(CarRentalDbContext context) => _context = (context);
-        public void Register(UserRegistrationViewModel model)
+
+        public async Task<int> Register(UserRegistrationViewModel model)
         {
+            
             byte[] hashedPassword;
 
             var bytes = System.Text.Encoding.UTF8.GetBytes(model.Password);
@@ -32,7 +37,9 @@ namespace CarRental.App.Repositories
             };
 
             _context.Users.Add(user);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
+
+            return _context.Users.FirstOrDefault(u => u.Username == user.Username).UserId;
         }
     }
 }
