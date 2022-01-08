@@ -21,7 +21,11 @@ namespace CarRental.App
         {
             services.AddCarRentalDbContext(_config);
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<ICarRepository, CarRepository>();
             services.AddControllersWithViews();
+
+            services.AddDistributedMemoryCache();
+            services.AddSession();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -41,12 +45,12 @@ namespace CarRental.App
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseSession();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=User}/{action=Login}/{id?}");
             });
 
             CarRentalDbSeeder.Seed(app);

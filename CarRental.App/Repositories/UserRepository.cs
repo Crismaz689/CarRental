@@ -16,14 +16,7 @@ namespace CarRental.App.Repositories
 
         public async Task<int> Register(UserRegistrationViewModel model)
         {
-            
-            byte[] hashedPassword;
-
-            var bytes = System.Text.Encoding.UTF8.GetBytes(model.Password);
-            using (SHA512 shaM = new SHA512Managed())
-            {
-                hashedPassword = shaM.ComputeHash(bytes);
-            }
+            byte[] hashedPassword = HashPassword(model.Password);
 
             User user = new User
             {
@@ -40,6 +33,28 @@ namespace CarRental.App.Repositories
             await _context.SaveChangesAsync();
 
             return _context.Users.FirstOrDefault(u => u.Username == user.Username).UserId;
+        }
+
+        public User Login(LoginViewModel user)
+        {
+            var hashedPassword = HashPassword(user.Password);
+
+            var loggedUser =  _context.Users.Where(u => u.Username == user.Username && u.PasswordHash == hashedPassword).FirstOrDefault();
+
+            return loggedUser;
+        }
+
+        private byte[] HashPassword(string password)
+        {
+            byte[] hashedPassword;
+
+            var bytes = System.Text.Encoding.UTF8.GetBytes(password);
+            using (SHA512 shaM = new SHA512Managed())
+            {
+                hashedPassword = shaM.ComputeHash(bytes);
+            }
+
+            return hashedPassword;
         }
     }
 }

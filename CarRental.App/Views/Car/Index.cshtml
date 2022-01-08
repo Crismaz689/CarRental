@@ -1,0 +1,17 @@
+﻿@model ICollection<CarRental.Database.Entities.Car>
+
+@{
+    ViewData["Title"] = "List of cars";
+}
+
+<div class="container">
+    @foreach (var car in Model)
+    {
+        <div>
+            @Html.DisplayFor(c => car.Model)
+            @Html.DisplayFor(c => car.Brand)
+            <a asp-controller="Car" asp-action="Details" asp-route-id="@car.CarId">See the car</a>
+        </div>
+    }
+</div>
+

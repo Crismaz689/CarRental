@@ -1,5 +1,5 @@
 ﻿using CarRental.App.Models;
-using Microsoft.AspNetCore.Mvc;
+using CarRental.Database.Entities;
 using System.Threading.Tasks;
 
 namespace CarRental.App.Repositories
@@ -7,5 +7,6 @@ namespace CarRental.App.Repositories
     public interface IUserRepository
     {
         public Task<int> Register(UserRegistrationViewModel model);
+        public User Login(LoginViewModel user);
     }
 }
