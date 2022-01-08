@@ -50,7 +50,7 @@ namespace CarRental.App
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=User}/{action=Login}/{id?}");
+                    pattern: "{controller=Car}/{action=Index}/{id?}");
             });
 
             CarRentalDbSeeder.Seed(app);

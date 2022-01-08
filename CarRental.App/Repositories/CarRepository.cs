@@ -14,7 +14,7 @@ namespace CarRental.App.Repositories
          
         public ICollection<Car> GetAllCars()
         {
-            return _context.Cars.ToList();
+            return _context.Cars.Where(c => c.IsRented == false).Select(c => c).ToList();
         }
 
         public Car GetCar(int id)

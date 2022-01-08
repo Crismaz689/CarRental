@@ -1,6 +1,10 @@
-﻿body {
+﻿
+/* GENERAL */
+body {
     background-color: #8afde8 !important;
 }
+
+/* LOGIN & REGISTER FORM */
 
 .form-container {
     width: 550px;
@@ -27,8 +31,31 @@
     width: 100%;
 }
 
+/* INPUTS */
+
 input::placeholder {
     text-align: center;
     color: #ffffff !important;
     font-size: 100%;
 }
+
+/* CARS */
+
+.car {
+    background: #ffffff;
+    border: 5px solid #021836;
+    border-radius: 30px;
+    padding: 0.3em;
+    margin: 2em;
+    width: 90%;
+    -webkit-box-shadow: inset 2px 2px 24px -5px rgba(66, 68, 90, 1);
+    -moz-box-shadow: inset 2px 2px 24px -5px rgba(66, 68, 90, 1);
+    box-shadow: inset 2px 2px 24px -5px rgba(66, 68, 90, 1);
+}
+
+.fa-coins {
+    color: #ffd800 !important;
+    font-size: 2em;
+}
+
+// edycja uzytkownika, rentowanie samochodow, zabezpieczenia gdzie moze wejsc uzytkownik, czy samochod nie jest wypozyczony, wyswietlanie uzytkownikowi jakie samochody wypozyczyl, odejmowanie kasy

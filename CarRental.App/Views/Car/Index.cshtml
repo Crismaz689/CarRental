@@ -1,17 +1,49 @@
 ﻿@model ICollection<CarRental.Database.Entities.Car>
 
 @{
-    ViewData["Title"] = "List of cars";
+    ViewData["Title"] = "List of available cars";
 }
-
 <div class="container">
-    @foreach (var car in Model)
-    {
-        <div>
-            @Html.DisplayFor(c => car.Model)
-            @Html.DisplayFor(c => car.Brand)
-            <a asp-controller="Car" asp-action="Details" asp-route-id="@car.CarId">See the car</a>
-        </div>
-    }
+    <div class="text-center my-4">
+        <h1>List of available cars</h1>
+    </div>
+    <div class="car-container row">
+        @foreach (var car in Model)
+        {
+            <div class="car col-12">
+                <div class="row">
+                    <div class="col-8 text-center">
+                        <div class="row">
+                            <div class="col-12">
+                                <b>
+                                    @Html.DisplayFor(c => car.Brand)
+                                </b>
+                                =>
+                                @Html.DisplayFor(c => car.Model)
+                            </div>
+                            <div class="col-12">
+                                @Html.DisplayFor(c => car.PlateNumber)
+                                |
+                                @Html.DisplayFor(c => car.ProductionDate.Year)
+                            </div>
+                            <div class="col-12">
+                                <i class="fas fa-coins"></i> @Html.DisplayFor(c => car.PricePer24h) $ (per 24 hours)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 d-flex align-items-center justify-content-center">
+                        <div class="row">
+                            <div class="col-12 my-2">
+                                <a asp-controller="Car" asp-action="Details" asp-route-id="@car.CarId" class="btn btn-primary w-100">See the car</a>
+                            </div>
+                            <div class="col-12 my-2">
+                                <a asp-controller="Rent" asp-action="Rent" asp-route-id="@car.CarId" class="btn btn-success w-100">Rent the car</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 </div>
 
