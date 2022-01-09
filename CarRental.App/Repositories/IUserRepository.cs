@@ -8,5 +8,6 @@ namespace CarRental.App.Repositories
     {
         public Task<int> Register(UserRegistrationViewModel model);
         public User Login(LoginViewModel user);
+        public User GetUser(int id);
     }
 }

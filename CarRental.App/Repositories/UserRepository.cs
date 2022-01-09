@@ -44,6 +44,11 @@ namespace CarRental.App.Repositories
             return loggedUser;
         }
 
+        public User GetUser(int id)
+        {
+            return _context.Users.FirstOrDefault(u => u.UserId == id);
+        }
+
         private byte[] HashPassword(string password)
         {
             byte[] hashedPassword;

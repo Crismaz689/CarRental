@@ -22,6 +22,7 @@ namespace CarRental.App
             services.AddCarRentalDbContext(_config);
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<ICarRepository, CarRepository>();
+            services.AddTransient<IRentRepository, RentRepository>();
             services.AddControllersWithViews();
 
             services.AddDistributedMemoryCache();

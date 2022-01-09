@@ -3,8 +3,12 @@
 @{
     ViewData["Title"] = Model.Model;
 }
+<div class="container">
+    <h1>
+        @Model.Model
+    </h1>
+    <form asp-action="RentCar" asp-controller="Rent" asp-route-id="@Model.CarId" class="form-login">
+        <input type="submit" value="Rent" class="btn btn-primary btn-lg w-50" />
+    </form>
+</div>
 
-<h1>
-    @Model.Model
-    <a asp-action="RentCar" asp-controller="Rent">Klik</a>
-</h1>

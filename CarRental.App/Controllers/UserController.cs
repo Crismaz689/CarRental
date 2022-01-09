@@ -20,7 +20,14 @@ namespace CarRental.App.Controllers
         // GET: UserController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var user = _repo.GetUser(id);
+            
+            if(user != null && HttpContext.Session.GetString("Username") == user.Username)
+            {
+                return View(user);
+            }
+
+            return RedirectToAction(nameof(Login));
         }
 
         // GET: UserController/Create
@@ -32,6 +39,12 @@ namespace CarRental.App.Controllers
         // GET: UserController/Login
         public ActionResult Login()
         {
+            if (HttpContext.Session.GetString("Username") != null)
+            {
+                return RedirectToAction(nameof(Details), "User", 
+                    new { id = HttpContext.Session.GetInt32("Id") } );
+            }
+
             return View();
         }
 
@@ -51,7 +64,7 @@ namespace CarRental.App.Controllers
             if(loggedUser != null)
             {
                 HttpContext.Session.SetString("Username", loggedUser.Username);
-                HttpContext.Session.SetString("Id", loggedUser.UserId.ToString());
+                HttpContext.Session.SetInt32("Id", loggedUser.UserId);
 
                 return RedirectToAction(nameof(Index), "Car");
             }
@@ -79,25 +92,17 @@ namespace CarRental.App.Controllers
             return View();
         }
 
-        // GET: UserController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
         // POST: UserController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
         {
-            try
+            if(ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+
             }
-            catch
-            {
-                return View();
-            }
+
+            return RedirectToAction(nameof(Details));
         }
     }
 }

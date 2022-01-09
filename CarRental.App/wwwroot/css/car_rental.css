@@ -58,4 +58,9 @@ input::placeholder {
     font-size: 2em;
 }
 
+.fa-user {
+    color: #b3fff7 !important;
+    font-size: 1.2em;
+}
+
 // edycja uzytkownika, rentowanie samochodow, zabezpieczenia gdzie moze wejsc uzytkownik, czy samochod nie jest wypozyczony, wyswietlanie uzytkownikowi jakie samochody wypozyczyl, odejmowanie kasy
