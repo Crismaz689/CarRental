@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace CarRental.App
 {
@@ -26,7 +27,9 @@ namespace CarRental.App
             services.AddControllersWithViews();
 
             services.AddDistributedMemoryCache();
-            services.AddSession();
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromMinutes(1);  
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
